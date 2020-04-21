@@ -83,6 +83,10 @@ func expandWidget(cfg map[string]interface{}) (*dashboards.DashboardWidget, erro
 		ID:            cfg["widget_id"].(int),
 	}
 
+	if accountID, ok := cfg["account_id"]; ok {
+		widget.AccountID = accountID.(int)
+	}
+
 	err := validateWidgetData(cfg)
 	if err != nil {
 		return nil, err
@@ -332,6 +336,10 @@ func flattenWidgets(in *[]dashboards.DashboardWidget) []map[string]interface{} {
 		m["column"] = w.Layout.Column
 		m["width"] = w.Layout.Width
 		m["height"] = w.Layout.Height
+
+		if w.AccountID > 0 {
+			m["account_id"] = w.AccountID
+		}
 
 		if w.Presentation.DrilldownDashboardID > 0 {
 			m["drilldown_dashboard_id"] = w.Presentation.DrilldownDashboardID

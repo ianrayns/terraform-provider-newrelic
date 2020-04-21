@@ -168,6 +168,11 @@ func resourceNewRelicDashboard() *schema.Resource {
 							ValidateFunc: validation.StringInSlice(validWidgetVisualizationValues, false),
 							Description:  "How the widget visualizes data.",
 						},
+						"account_id": {
+							Type:        schema.TypeInt,
+							Optional:    true,
+							Description: "Source account to fetch data from, if not the current account.",
+						},
 						"width": {
 							Type:        schema.TypeInt,
 							Optional:    true,
